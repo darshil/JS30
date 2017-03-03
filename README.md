@@ -1,1 +1,1 @@
-# 30-Days-Of-JS
+# 30 Days of JavaScript
