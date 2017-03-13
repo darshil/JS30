@@ -1,0 +1,16 @@
+html{
+    /* TEMP: Switch with an img */
+    background: #ccc; 
+    background-size: cover;
+    font-family: 'Lato', Arial;
+    text-align: center;
+    font-size: 10px;
+}
+body{
+    margin: 0;
+    font-size: 2rem;
+    display:flex;
+    flex:1;
+    min-height: 100vh;
+    align-items: center;
+}
