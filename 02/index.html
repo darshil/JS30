@@ -20,7 +20,7 @@
 <body>
     
     <div class="col-md-12">
-    <h1>Analog Clock</h1>
+    <h1>Analog & Digital Clock</h1>
     <div class="clock">
       <div class="clock-face">
         <div class="hand hour-hand"></div>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="analogClock">
-        <h1 class="time"></h1>
+        <h1 id="time"></h1>
     </div>
 
 
@@ -39,15 +39,23 @@
 
     <br></br>
   <button type="button" id="analog" class="btn btn-success">Analog</button>
-  <button type="button" class="btn btn-info ">Digital </button>
-
+  <button type="button" id="digital" class="btn btn-info ">Digital </button>
+  <button type= "button" id="both" class="btn btn-danger">Both</button>
     <script>
+
+    var clockTypeCheck = false; //if false = analog
+    var bothClockCheck = false;
 
 const secondHand = document.querySelector('.second-hand');
   const minsHand = document.querySelector('.min-hand');
   const hourHand = document.querySelector('.hour-hand');
 
   function setDate() {
+
+
+
+   
+     
     const now = new Date();
 
     const seconds = now.getSeconds();
@@ -62,23 +70,24 @@ const secondHand = document.querySelector('.second-hand');
     const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
     hourHand.style.transform = `rotate(${hourDegrees}deg)`;
 
-  
+   
   }
-
+setInterval(digitalClock, 1000);
   setInterval(setDate, 1000);
-
-  setDate();
+  
+  
 
   document.getElementById("analog").addEventListener("click", analogClockStart);
   document.getElementById("digital").addEventListener("click", digitalClockStart);
- function analogClockStart(){
-     setInterval(analogClock, 1000);
- }
+  document.getElementById("both").addEventListener("click", bothClock );
 
-  function analogClock() {
+  function digitalClockStart() {
+      clockTypeCheck = true;
+       bothClockCheck = false;
 
-    $(".clock").hide();
+  }
 
+  function digitalClock() {
 
   var date = new Date();
   var hours = date.getHours();
@@ -89,10 +98,35 @@ const secondHand = document.querySelector('.second-hand');
   hours = hours ? hours : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? '0'+minutes : minutes;
   var finalTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
-  console.log(finalTime);
+  
+    if(clockTypeCheck){
+     $(".clock").hide();
+     $("#time").text(finalTime);
+     $("#time").show();
+  
+    
+     if(bothClockCheck){
+          $(".clock").show(); 
+     }
+    }
 
-
+  
   }
+
+  function analogClockStart(){
+      $(".clock").show();
+      $("#time").hide();
+      clockTypeCheck = false;
+  } 
+
+  function bothClock(){
+       clockTypeCheck = true;
+        $(".clock").show();
+         $("#time").show();
+         bothClockCheck = true;
+  }
+
+
     
     </script>  
 </body>
